@@ -12,7 +12,11 @@ export class CategoriesService {
     private readonly categoriesRepository: Repository<Category>,
   ) {}
 
-  create(createCategoryDto: CreateCategoryDto): Promise<Category> {
+  create(createCategoryDto: CreateCategoryDto | CreateCategoryDto[]) {
+    if (Array.isArray(createCategoryDto)) {
+      const categories = this.categoriesRepository.create(createCategoryDto);
+      return this.categoriesRepository.save(categories);
+    }
     const category = this.categoriesRepository.create(createCategoryDto);
     return this.categoriesRepository.save(category);
   }

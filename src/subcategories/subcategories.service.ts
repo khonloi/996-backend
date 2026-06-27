@@ -12,7 +12,15 @@ export class SubcategoriesService {
     private readonly subcategoriesRepository: Repository<Subcategory>,
   ) {}
 
-  create(createSubcategoryDto: CreateSubcategoryDto): Promise<Subcategory> {
+  create(createSubcategoryDto: CreateSubcategoryDto | CreateSubcategoryDto[]) {
+    if (Array.isArray(createSubcategoryDto)) {
+      const subcategoriesData = createSubcategoryDto.map(dto => ({
+        ...dto,
+        category: { id: dto.categoryId }
+      }));
+      const subcategories = this.subcategoriesRepository.create(subcategoriesData);
+      return this.subcategoriesRepository.save(subcategories);
+    }
     const subcategory = this.subcategoriesRepository.create({
       ...createSubcategoryDto,
       category: { id: createSubcategoryDto.categoryId }

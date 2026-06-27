@@ -15,6 +15,6 @@ export class Category {
   @Column({ nullable: true })
   image: string;
 
-  @OneToMany(() => Subcategory, (subcategory) => subcategory.category)
+  @OneToMany(() => Subcategory, (subcategory) => subcategory.category, { cascade: true })
   subcategories: Subcategory[];
 }

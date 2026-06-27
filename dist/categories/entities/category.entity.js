@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Category = void 0;
+const openapi = require("@nestjs/swagger");
 const typeorm_1 = require("typeorm");
 const subcategory_entity_1 = require("../../subcategories/entities/subcategory.entity");
 let Category = class Category {
@@ -18,6 +19,9 @@ let Category = class Category {
     description;
     image;
     subcategories;
+    static _OPENAPI_METADATA_FACTORY() {
+        return { id: { required: true, type: () => Number }, name: { required: true, type: () => String }, description: { required: true, type: () => String }, image: { required: true, type: () => String }, subcategories: { required: true, type: () => [require("../../subcategories/entities/subcategory.entity").Subcategory] } };
+    }
 };
 exports.Category = Category;
 __decorate([
@@ -37,7 +41,7 @@ __decorate([
     __metadata("design:type", String)
 ], Category.prototype, "image", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => subcategory_entity_1.Subcategory, (subcategory) => subcategory.category),
+    (0, typeorm_1.OneToMany)(() => subcategory_entity_1.Subcategory, (subcategory) => subcategory.category, { cascade: true }),
     __metadata("design:type", Array)
 ], Category.prototype, "subcategories", void 0);
 exports.Category = Category = __decorate([

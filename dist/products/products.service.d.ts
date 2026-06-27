@@ -5,7 +5,7 @@ import { Product } from './entities/product.entity';
 export declare class ProductsService {
     private readonly productsRepository;
     constructor(productsRepository: Repository<Product>);
-    create(createProductDto: CreateProductDto): Promise<Product>;
+    create(createProductDto: CreateProductDto | CreateProductDto[]): Promise<Product[]> | Promise<Product>;
     findAll(): Promise<Product[]>;
     findOne(id: number): Promise<Product>;
     update(id: number, updateProductDto: UpdateProductDto): Promise<Product>;

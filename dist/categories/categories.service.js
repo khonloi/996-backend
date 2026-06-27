@@ -23,6 +23,10 @@ let CategoriesService = class CategoriesService {
         this.categoriesRepository = categoriesRepository;
     }
     create(createCategoryDto) {
+        if (Array.isArray(createCategoryDto)) {
+            const categories = this.categoriesRepository.create(createCategoryDto);
+            return this.categoriesRepository.save(categories);
+        }
         const category = this.categoriesRepository.create(createCategoryDto);
         return this.categoriesRepository.save(category);
     }

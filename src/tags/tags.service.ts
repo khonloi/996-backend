@@ -12,7 +12,11 @@ export class TagsService {
     private readonly tagsRepository: Repository<Tag>,
   ) {}
 
-  create(createTagDto: CreateTagDto): Promise<Tag> {
+  create(createTagDto: CreateTagDto | CreateTagDto[]) {
+    if (Array.isArray(createTagDto)) {
+      const tags = this.tagsRepository.create(createTagDto);
+      return this.tagsRepository.save(tags);
+    }
     const tag = this.tagsRepository.create(createTagDto);
     return this.tagsRepository.save(tag);
   }

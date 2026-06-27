@@ -5,7 +5,7 @@ import { Subcategory } from './entities/subcategory.entity';
 export declare class SubcategoriesService {
     private readonly subcategoriesRepository;
     constructor(subcategoriesRepository: Repository<Subcategory>);
-    create(createSubcategoryDto: CreateSubcategoryDto): Promise<Subcategory>;
+    create(createSubcategoryDto: CreateSubcategoryDto | CreateSubcategoryDto[]): Promise<Subcategory[]> | Promise<Subcategory>;
     findAll(): Promise<Subcategory[]>;
     findOne(id: number): Promise<Subcategory>;
     update(id: number, updateSubcategoryDto: UpdateSubcategoryDto): Promise<Subcategory>;

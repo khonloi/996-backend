@@ -23,6 +23,14 @@ let SubcategoriesService = class SubcategoriesService {
         this.subcategoriesRepository = subcategoriesRepository;
     }
     create(createSubcategoryDto) {
+        if (Array.isArray(createSubcategoryDto)) {
+            const subcategoriesData = createSubcategoryDto.map(dto => ({
+                ...dto,
+                category: { id: dto.categoryId }
+            }));
+            const subcategories = this.subcategoriesRepository.create(subcategoriesData);
+            return this.subcategoriesRepository.save(subcategories);
+        }
         const subcategory = this.subcategoriesRepository.create({
             ...createSubcategoryDto,
             category: { id: createSubcategoryDto.categoryId }

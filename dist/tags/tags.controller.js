@@ -13,7 +13,9 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TagsController = void 0;
+const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const tags_service_1 = require("./tags.service");
 const create_tag_dto_1 = require("./dto/create-tag.dto");
 const update_tag_dto_1 = require("./dto/update-tag.dto");
@@ -41,19 +43,29 @@ let TagsController = class TagsController {
 exports.TagsController = TagsController;
 __decorate([
     (0, common_1.Post)(),
+    (0, swagger_1.ApiBody)({
+        schema: {
+            oneOf: [
+                { $ref: (0, swagger_1.getSchemaPath)(create_tag_dto_1.CreateTagDto) },
+                { type: 'array', items: { $ref: (0, swagger_1.getSchemaPath)(create_tag_dto_1.CreateTagDto) } },
+            ],
+        },
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_tag_dto_1.CreateTagDto]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], TagsController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    openapi.ApiResponse({ status: 200, type: [require("./entities/tag.entity").Tag] }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], TagsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
+    openapi.ApiResponse({ status: 200, type: require("./entities/tag.entity").Tag }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -61,6 +73,7 @@ __decorate([
 ], TagsController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    openapi.ApiResponse({ status: 200, type: require("./entities/tag.entity").Tag }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -69,12 +82,14 @@ __decorate([
 ], TagsController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], TagsController.prototype, "remove", null);
 exports.TagsController = TagsController = __decorate([
+    (0, swagger_1.ApiExtraModels)(create_tag_dto_1.CreateTagDto),
     (0, common_1.Controller)('tags'),
     __metadata("design:paramtypes", [tags_service_1.TagsService])
 ], TagsController);

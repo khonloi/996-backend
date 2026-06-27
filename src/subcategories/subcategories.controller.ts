@@ -1,14 +1,24 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { ApiBody, ApiExtraModels, getSchemaPath } from '@nestjs/swagger';
 import { SubcategoriesService } from './subcategories.service';
 import { CreateSubcategoryDto } from './dto/create-subcategory.dto';
 import { UpdateSubcategoryDto } from './dto/update-subcategory.dto';
 
+@ApiExtraModels(CreateSubcategoryDto)
 @Controller('subcategories')
 export class SubcategoriesController {
   constructor(private readonly subcategoriesService: SubcategoriesService) {}
 
   @Post()
-  create(@Body() createSubcategoryDto: CreateSubcategoryDto) {
+  @ApiBody({
+    schema: {
+      oneOf: [
+        { $ref: getSchemaPath(CreateSubcategoryDto) },
+        { type: 'array', items: { $ref: getSchemaPath(CreateSubcategoryDto) } },
+      ],
+    },
+  })
+  create(@Body() createSubcategoryDto: CreateSubcategoryDto | CreateSubcategoryDto[]) {
     return this.subcategoriesService.create(createSubcategoryDto);
   }
 

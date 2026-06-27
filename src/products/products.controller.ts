@@ -1,14 +1,24 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { ApiBody, ApiExtraModels, getSchemaPath } from '@nestjs/swagger';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 
+@ApiExtraModels(CreateProductDto)
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
-  create(@Body() createProductDto: CreateProductDto) {
+  @ApiBody({
+    schema: {
+      oneOf: [
+        { $ref: getSchemaPath(CreateProductDto) },
+        { type: 'array', items: { $ref: getSchemaPath(CreateProductDto) } },
+      ],
+    },
+  })
+  create(@Body() createProductDto: CreateProductDto | CreateProductDto[]) {
     return this.productsService.create(createProductDto);
   }
 

@@ -1,1 +1,1 @@
-{"version":3,"file":"create-category.dto.js","sourceRoot":"","sources":["../../../src/categories/dto/create-category.dto.ts"],"names":[],"mappings":";;;AAAA,MAAa,iBAAiB;IAC5B,IAAI,CAAS;IACb,WAAW,CAAU;IACrB,KAAK,CAAU;CAChB;AAJD,8CAIC"}
+{"version":3,"file":"create-category.dto.js","sourceRoot":"","sources":["../../../src/categories/dto/create-category.dto.ts"],"names":[],"mappings":";;;;AAAA,MAAa,iBAAiB;IAC5B,IAAI,CAAS;IACb,WAAW,CAAU;IACrB,KAAK,CAAU;IACf,aAAa,CAIT;;;;CACL;AATD,8CASC"}

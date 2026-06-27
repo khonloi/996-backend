@@ -23,6 +23,10 @@ let TagsService = class TagsService {
         this.tagsRepository = tagsRepository;
     }
     create(createTagDto) {
+        if (Array.isArray(createTagDto)) {
+            const tags = this.tagsRepository.create(createTagDto);
+            return this.tagsRepository.save(tags);
+        }
         const tag = this.tagsRepository.create(createTagDto);
         return this.tagsRepository.save(tag);
     }

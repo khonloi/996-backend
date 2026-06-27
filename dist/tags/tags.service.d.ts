@@ -5,7 +5,7 @@ import { Tag } from './entities/tag.entity';
 export declare class TagsService {
     private readonly tagsRepository;
     constructor(tagsRepository: Repository<Tag>);
-    create(createTagDto: CreateTagDto): Promise<Tag>;
+    create(createTagDto: CreateTagDto | CreateTagDto[]): Promise<Tag[]> | Promise<Tag>;
     findAll(): Promise<Tag[]>;
     findOne(id: number): Promise<Tag>;
     update(id: number, updateTagDto: UpdateTagDto): Promise<Tag>;

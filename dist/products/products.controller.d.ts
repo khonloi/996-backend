@@ -4,7 +4,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 export declare class ProductsController {
     private readonly productsService;
     constructor(productsService: ProductsService);
-    create(createProductDto: CreateProductDto): Promise<import("./entities/product.entity").Product>;
+    create(createProductDto: CreateProductDto | CreateProductDto[]): Promise<import("./entities/product.entity").Product[]> | Promise<import("./entities/product.entity").Product>;
     findAll(): Promise<import("./entities/product.entity").Product[]>;
     findByCategory(categoryId: string): Promise<import("./entities/product.entity").Product[]>;
     findBySubcategory(subcategoryId: string): Promise<import("./entities/product.entity").Product[]>;

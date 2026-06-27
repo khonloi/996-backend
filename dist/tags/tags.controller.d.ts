@@ -4,7 +4,7 @@ import { UpdateTagDto } from './dto/update-tag.dto';
 export declare class TagsController {
     private readonly tagsService;
     constructor(tagsService: TagsService);
-    create(createTagDto: CreateTagDto): Promise<import("./entities/tag.entity").Tag>;
+    create(createTagDto: CreateTagDto | CreateTagDto[]): Promise<import("./entities/tag.entity").Tag[]> | Promise<import("./entities/tag.entity").Tag>;
     findAll(): Promise<import("./entities/tag.entity").Tag[]>;
     findOne(id: string): Promise<import("./entities/tag.entity").Tag>;
     update(id: string, updateTagDto: UpdateTagDto): Promise<import("./entities/tag.entity").Tag>;

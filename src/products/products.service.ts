@@ -12,7 +12,19 @@ export class ProductsService {
     private readonly productsRepository: Repository<Product>,
   ) {}
 
-  create(createProductDto: CreateProductDto): Promise<Product> {
+  create(createProductDto: CreateProductDto | CreateProductDto[]) {
+    if (Array.isArray(createProductDto)) {
+      const productsData = createProductDto.map(dto => {
+        const { subcategoryId, tagIds, ...rest } = dto;
+        return {
+          ...rest,
+          subcategory: { id: subcategoryId },
+          tags: tagIds ? tagIds.map(id => ({ id })) : [],
+        };
+      });
+      const products = this.productsRepository.create(productsData);
+      return this.productsRepository.save(products);
+    }
     const { subcategoryId, tagIds, ...rest } = createProductDto;
     
     const product = this.productsRepository.create({
